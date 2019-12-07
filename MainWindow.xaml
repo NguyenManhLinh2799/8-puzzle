@@ -9,19 +9,20 @@
         MouseMove="Window_MouseMove">
     <Canvas Margin="0,4,0,-4" >
         <Canvas x:Name="canvas"></Canvas>
-        <Button Content="Reset"  Height="30" Canvas.Left="340" Canvas.Top="154" Click="Reset_Click"  Width="80"></Button>
-        <Button Content="Choose Img" Click="ChooseImage_Click"  Height="30" Canvas.Left="340" Canvas.Top="188" Width="80"></Button>
-        <Button Content="Start" Click="Start_Click" Height="30" Canvas.Left="340" Canvas.Top="121"  Width="80"></Button>
-        <Button Content="Load"  Height="30" Canvas.Left="340" Canvas.Top="254" Click="Load_Click"  Width="80"></Button>
+        <Button Content="Reset"  Height="30" Canvas.Left="340" Canvas.Top="136" Click="Reset_Click"  Width="80"></Button>
+        <Button Content="Choose Img" Click="ChooseImage_Click"  Height="30" Canvas.Left="340" Canvas.Top="186" Width="80"></Button>
+        <Button Content="Start" Click="Start_Click" Height="30" Canvas.Left="340" Canvas.Top="101"  Width="80"></Button>
+        <Button Content="Load"  Height="30" Canvas.Left="340" Canvas.Top="256" Click="Load_Click"  Width="80"></Button>
         <Button Content="Save" Click="Save_Click"  Height="30" Canvas.Left="340" Canvas.Top="221" Width="80"></Button>
 
         <Image x:Name="previewImage" Height="250" Width="250" Canvas.Left="450" Canvas.Top="80"></Image>
-        <Button Content="Tren" Click="Control_Click" Canvas.Left="566" Canvas.Top="339" Height="50" Width="50"></Button>
-        <Button Content="Duoi" Click="Control_Click" Canvas.Left="568" Canvas.Top="443" Height="50" Width="50"></Button>
-        <Button Content="Trai" Click="Control_Click" Canvas.Left="513" Canvas.Top="388" Height="50" Width="50"></Button>
-        <Button Content="Phai" Click="Control_Click" Canvas.Left="619" Canvas.Top="386" Height="50" Width="50"></Button>
-        <Label Content="3" Name="minute" Foreground="Blue" FontSize="20" FontWeight="Bold" Canvas.Left="140" Canvas.Top="24"></Label>
-        <Label Content=":" Foreground="Blue" FontSize="20" FontWeight="Bold" Canvas.Left="158" Canvas.Top="24"></Label>
-        <Label Content="00" Name="second" Foreground="Blue" FontSize="20" FontWeight="Bold" Canvas.Left="167" Canvas.Top="24"></Label>
+        <Button Content="Up" Name="upBtn" Canvas.Left="566" Canvas.Top="335" Height="50" Width="50"></Button>
+        <Button Content="Down" Name="downBtn" Canvas.Left="566" Canvas.Top="442" Height="50" Width="50"></Button>
+        <Button Content="Left" Name="leftBtn" Canvas.Left="511" Canvas.Top="388" Height="50" Width="50"></Button>
+        <Button Content="Right" Name="rightBtn" Canvas.Left="621" Canvas.Top="388" Height="50" Width="50"></Button>
+        <Label Content="Remain time" FontSize="20" FontWeight="Bold" Canvas.Top="29" Canvas.Left="10"/>
+        <Label Content="3" FontFamily="Courier New" Name="minute" Foreground="Blue" FontSize="40" FontWeight="Bold" Canvas.Left="139" Canvas.Top="17"></Label>
+        <Label Content=":" FontFamily="Courier New" Foreground="Blue" FontSize="40" FontWeight="Bold" Canvas.Left="160" Canvas.Top="17"></Label>
+        <Label Content="00" FontFamily="Courier New" Name="second" Foreground="Blue" FontSize="40" FontWeight="Bold" Canvas.Left="179" Canvas.Top="17"></Label>
     </Canvas>
 </Window>

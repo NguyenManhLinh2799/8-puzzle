@@ -32,8 +32,8 @@ namespace _8_puzzle
         int width = 80;
         int height;//chiều dài tự mở rộng theo tiwr lệ của chiều rộng
 
-        int startX = 80;
-        int startY = 70;
+        int startX = 65;
+        int startY = 80;
 
 
         int numberPuzzle = 3;
@@ -57,7 +57,8 @@ namespace _8_puzzle
 
             sourceImg = new Image[numberPuzzle * numberPuzzle];
             A = new int[numberPuzzle, numberPuzzle];
-            var source = new BitmapImage(new Uri("1.png", UriKind.Relative));
+            uri = "Images/1.png";
+            var source = new BitmapImage(new Uri("Images/1.png", UriKind.Relative));
             height = (int)(source.Height / (source.Width / width));
             previewImage.Source = source;
             Canvas.SetLeft(previewImage, PosiPreviewX);
@@ -68,7 +69,7 @@ namespace _8_puzzle
             Load_Interface();
         }
 
-
+        List<Image> cropImages = new List<Image>();
         private void CutImage(BitmapImage source)
         {
             int dem = 0;
@@ -89,6 +90,7 @@ namespace _8_puzzle
                         cropImage.Width = width;
                         cropImage.Height = height;
                         cropImage.Source = cropBitmap;
+                        cropImages.Add(cropImage);
                         canvas.Children.Add(cropImage);
                         Canvas.SetLeft(cropImage, startX + j * (cropImage.Width + 2));
                         Canvas.SetTop(cropImage, startY + i * (cropImage.Height + 2));
@@ -99,8 +101,8 @@ namespace _8_puzzle
                         A[i, j] = dem;
 
                         //add event
-                        cropImage.MouseLeftButtonDown += CropImage_MouseLeftButtonDown;
-                        cropImage.PreviewMouseLeftButtonUp += CropImage_PreviewMouseLeftButtonUp;
+                        //cropImage.MouseLeftButtonDown += CropImage_MouseLeftButtonDown;
+                        //cropImage.PreviewMouseLeftButtonUp += CropImage_PreviewMouseLeftButtonUp;
                         cropImage.Tag = new Tuple<int, int>(i, j);
                         //cropImage.MouseLeftButtonUp
                     }
@@ -260,6 +262,18 @@ namespace _8_puzzle
             RanDom();
             dt.Stop();
             Load_Interface();
+
+            // Disable event
+            foreach (Image cropImage in cropImages)
+            {
+                cropImage.MouseLeftButtonDown -= CropImage_MouseLeftButtonDown;
+                cropImage.PreviewMouseLeftButtonUp -= CropImage_PreviewMouseLeftButtonUp;
+            }
+            upBtn.Click -= Control_Click;
+            downBtn.Click -= Control_Click;
+            leftBtn.Click -= Control_Click;
+            rightBtn.Click -= Control_Click;
+
             countSecond = 0;
             second.Content = "0" + countSecond.ToString();
             countMinute = 3;
@@ -274,13 +288,14 @@ namespace _8_puzzle
                 RanDom();
                 Load_Interface();
             }
-            else
-                dt.Start();
+            //else
+            //    dt.Start();
         }
 
         public bool Choose()
         {
             var screen = new OpenFileDialog();
+            screen.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
             if (screen.ShowDialog() == true)
             {
                 canvas.Children.Clear();
@@ -319,21 +334,21 @@ namespace _8_puzzle
         private void Control_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            if (btn.Content.Equals("Tren") && IBase < 2)
+            if (btn.Content.Equals("Up") && IBase < 2)
             {
                 moveControl(IBase + 1, JBase);
             }
 
-            if (btn.Content.Equals("Duoi") && IBase > 0)
+            if (btn.Content.Equals("Down") && IBase > 0)
             {
                 moveControl(IBase - 1, JBase);
             }
 
-            if (btn.Content.Equals("Trai") && JBase < 2)
+            if (btn.Content.Equals("Left") && JBase < 2)
             {
                 moveControl(IBase, JBase + 1);
             }
-            if (btn.Content.Equals("Phai") && JBase > 0)
+            if (btn.Content.Equals("Right") && JBase > 0)
             {
                 moveControl(IBase, JBase - 1);
             }
@@ -382,6 +397,18 @@ namespace _8_puzzle
         {
             //RanDom();
             //Load_Interface();
+
+            // Add event
+            foreach(Image cropImage in cropImages)
+            {
+                cropImage.MouseLeftButtonDown += CropImage_MouseLeftButtonDown;
+                cropImage.PreviewMouseLeftButtonUp += CropImage_PreviewMouseLeftButtonUp;
+            }
+            upBtn.Click += Control_Click;
+            downBtn.Click += Control_Click;
+            leftBtn.Click += Control_Click;
+            rightBtn.Click += Control_Click;
+
             if (countMinute == 0 && countSecond == 0)
             {
                 countMinute = 3;
@@ -426,7 +453,7 @@ namespace _8_puzzle
                     }
 
                     Wr.Close();
-                    MessageBox.Show("Lưu thành công!");
+                    MessageBox.Show("Save successfully!");
                 }
             }
 
@@ -435,6 +462,7 @@ namespace _8_puzzle
         private void Load_Click(object sender, RoutedEventArgs e)
         {
             var screen = new OpenFileDialog();
+            screen.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
             if (screen.ShowDialog() == true)
             {
                 var filename = screen.FileName;
