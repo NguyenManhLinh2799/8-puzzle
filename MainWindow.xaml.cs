@@ -393,21 +393,26 @@ namespace _8_puzzle
             countSecond--;
         }
 
+        bool start = false;
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             //RanDom();
             //Load_Interface();
 
             // Add event
-            foreach(Image cropImage in cropImages)
+            if(!start)
             {
-                cropImage.MouseLeftButtonDown += CropImage_MouseLeftButtonDown;
-                cropImage.PreviewMouseLeftButtonUp += CropImage_PreviewMouseLeftButtonUp;
+                foreach (Image cropImage in cropImages)
+                {
+                    cropImage.MouseLeftButtonDown += CropImage_MouseLeftButtonDown;
+                    cropImage.PreviewMouseLeftButtonUp += CropImage_PreviewMouseLeftButtonUp;
+                }
+                upBtn.Click += Control_Click;
+                downBtn.Click += Control_Click;
+                leftBtn.Click += Control_Click;
+                rightBtn.Click += Control_Click;
+                start = true;
             }
-            upBtn.Click += Control_Click;
-            downBtn.Click += Control_Click;
-            leftBtn.Click += Control_Click;
-            rightBtn.Click += Control_Click;
 
             if (countMinute == 0 && countSecond == 0)
             {
@@ -480,7 +485,7 @@ namespace _8_puzzle
                 //đọc link
                 uri = Rr.ReadLine();
                 canvas.Children.Clear();
-                var source = new BitmapImage(new Uri(uri, UriKind.Absolute));
+                var source = new BitmapImage(new Uri(uri, UriKind.Relative));
                 height = (int)(source.Height / (source.Width / width));
                 CutImage(source);
 
